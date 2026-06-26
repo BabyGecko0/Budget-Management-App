@@ -1,0 +1,29 @@
+package com.budgetapp.dto.response;
+
+import com.budgetapp.entity.SavingsGoal;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+
+public record SavingsGoalResponse(
+        Long id,
+        String name,
+        BigDecimal targetAmount,
+        BigDecimal currentAmount,
+        BigDecimal progressPercent,
+        LocalDate deadline,
+        String note
+) {
+    public static SavingsGoalResponse from(SavingsGoal g) {
+        BigDecimal progress = g.getTargetAmount().compareTo(BigDecimal.ZERO) == 0
+                ? BigDecimal.ZERO
+                : g.getCurrentAmount()
+                        .multiply(BigDecimal.valueOf(100))
+                        .divide(g.getTargetAmount(), 2, RoundingMode.HALF_UP);
+        return new SavingsGoalResponse(
+                g.getId(), g.getName(), g.getTargetAmount(),
+                g.getCurrentAmount(), progress, g.getDeadline(), g.getNote()
+        );
+    }
+}
