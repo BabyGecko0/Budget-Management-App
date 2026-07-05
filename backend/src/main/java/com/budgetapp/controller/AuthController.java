@@ -1,5 +1,6 @@
 package com.budgetapp.controller;
 
+import com.budgetapp.dto.request.GoogleLoginRequest;
 import com.budgetapp.dto.request.LoginRequest;
 import com.budgetapp.dto.request.RegisterRequest;
 import com.budgetapp.dto.response.AuthResponse;
@@ -24,5 +25,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(authService.login(req));
+    }
+
+    @PostMapping("/google")
+    public ResponseEntity<AuthResponse> googleLogin(@Valid @RequestBody GoogleLoginRequest req) {
+        return ResponseEntity.ok(authService.loginWithGoogle(req));
     }
 }

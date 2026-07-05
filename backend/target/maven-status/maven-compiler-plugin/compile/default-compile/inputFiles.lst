@@ -16,6 +16,7 @@ C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\cont
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\AccountRequest.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\BudgetRequest.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\CategoryRequest.java
+C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\GoogleLoginRequest.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\LoginRequest.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\RecurringTransactionRequest.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\dto\request\RegisterRequest.java
@@ -35,6 +36,7 @@ C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\enti
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\Budget.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\Category.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\enums\AccountType.java
+C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\enums\AuthProvider.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\enums\CategoryType.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\enums\Frequency.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\entity\enums\TransactionType.java
@@ -56,6 +58,7 @@ C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\serv
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\AuthService.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\BudgetService.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\CategoryService.java
+C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\GoogleTokenVerifier.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\RecurringTransactionScheduler.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\RecurringTransactionService.java
 C:\Users\Perdorues\Desktop\Moeny Budget\backend\src\main\java\com\budgetapp\service\ReportService.java

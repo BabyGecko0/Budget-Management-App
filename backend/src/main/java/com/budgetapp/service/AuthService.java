@@ -1,13 +1,16 @@
 package com.budgetapp.service;
 
 import com.budgetapp.config.CustomUserDetails;
+import com.budgetapp.dto.request.GoogleLoginRequest;
 import com.budgetapp.dto.request.LoginRequest;
 import com.budgetapp.dto.request.RegisterRequest;
 import com.budgetapp.dto.response.AuthResponse;
 import com.budgetapp.entity.User;
+import com.budgetapp.entity.enums.AuthProvider;
 import com.budgetapp.exception.BadRequestException;
 import com.budgetapp.repository.UserRepository;
 import com.budgetapp.util.JwtUtil;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +27,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final CategoryService categoryService;
+    private final GoogleTokenVerifier googleTokenVerifier;
 
     @Transactional
     public AuthResponse register(RegisterRequest req) {
@@ -57,6 +61,39 @@ public class AuthService {
         }
 
         log.info("User logged in: {}", user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail());
+        return new AuthResponse(token, user.getEmail(), user.getDisplayName(), user.getCurrency());
+    }
+
+    @Transactional
+    public AuthResponse loginWithGoogle(GoogleLoginRequest req) {
+        GoogleIdToken.Payload payload = googleTokenVerifier.verify(req.idToken());
+
+        String googleId = payload.getSubject();
+        String email = payload.getEmail();
+        String name = (String) payload.get("name");
+
+        User user = userRepository.findByGoogleId(googleId)
+                .or(() -> userRepository.findByEmail(email))
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    newUser.setDisplayName(name);
+                    newUser.setAuthProvider(AuthProvider.GOOGLE);
+                    newUser.setGoogleId(googleId);
+                    userRepository.save(newUser);
+                    categoryService.seedDefaultCategories(newUser);
+                    log.info("Registered new Google user: {}", email);
+                    return newUser;
+                });
+
+        if (user.getGoogleId() == null) {
+            user.setGoogleId(googleId);
+            user.setAuthProvider(AuthProvider.GOOGLE);
+            userRepository.save(user);
+        }
+
+        log.info("User logged in via Google: {}", user.getEmail());
         String token = jwtUtil.generateToken(user.getEmail());
         return new AuthResponse(token, user.getEmail(), user.getDisplayName(), user.getCurrency());
     }
