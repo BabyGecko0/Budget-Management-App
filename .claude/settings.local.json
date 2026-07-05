@@ -4,7 +4,16 @@
       "PowerShell(java -version 2>&1)",
       "PowerShell(Get-Command mvn -ErrorAction SilentlyContinue)",
       "PowerShell($env:JAVA_HOME)",
-      "PowerShell(choco install temurin25 --yes 2>&1)"
+      "PowerShell(choco install temurin25 --yes 2>&1)",
+      "Bash(mvn -v)",
+      "Bash(npm install *)",
+      "Bash(mvn -q compile -DskipTests)",
+      "Bash(npm run *)",
+      "Bash(mvn -q spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dserver.port=8085\")",
+      "Bash(mvn -q package -DskipTests)",
+      "Bash(mvn package *)",
+      "Bash(unzip -l target/budget-app-backend-0.0.1-SNAPSHOT.jar)",
+      "Bash(unzip -p target/budget-app-backend.jar BOOT-INF/classes/com/budgetapp/config/SecurityConfig.class)"
     ]
   }
 }

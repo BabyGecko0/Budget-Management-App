@@ -1,2 +1,0 @@
-2026-07-05 00:05:00.848 [scheduling-1] INFO  c.b.s.RecurringTransactionScheduler - Recurring job: 0 due transaction(s) found
-2026-07-05 02:11:08.704 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m43s553ms638µs).

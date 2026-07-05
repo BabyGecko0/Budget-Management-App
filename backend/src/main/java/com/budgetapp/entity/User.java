@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,6 +33,8 @@ public class User {
     private String displayName;
 
     private String currency = "ALL";
+
+    private BigDecimal monthlyIncome;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
