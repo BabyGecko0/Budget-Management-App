@@ -19,5 +19,8 @@ start "Money Budget" javaw -jar "%JAR%"
 
 echo Starting Money Budget...
 timeout /t 8 /nobreak >nul
-start http://localhost:8600
+
+rem Open in app mode: standalone window, no address bar or tabs.
+rem Tries Chrome first, falls back to Edge (always present on Windows 11).
+start chrome --app=http://localhost:8600 2>nul || start msedge --app=http://localhost:8600
 exit /b 0

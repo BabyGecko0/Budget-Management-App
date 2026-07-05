@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- stack of bill edges -->
+  <g>
+    <rect x="96"  y="388" width="320" height="44" rx="14" fill="#15803d"/>
+    <rect x="84"  y="352" width="344" height="44" rx="14" fill="#16a34a"/>
+    <rect x="94"  y="316" width="324" height="44" rx="14" fill="#15803d"/>
+    <rect x="80"  y="280" width="352" height="44" rx="14" fill="#16a34a"/>
+    <!-- thin highlights between bills -->
+    <rect x="96"  y="384" width="320" height="6" rx="3" fill="#dcfce7" opacity="0.7"/>
+    <rect x="84"  y="348" width="344" height="6" rx="3" fill="#dcfce7" opacity="0.7"/>
+    <rect x="94"  y="312" width="324" height="6" rx="3" fill="#dcfce7" opacity="0.7"/>
+    <rect x="80"  y="276" width="352" height="6" rx="3" fill="#dcfce7" opacity="0.7"/>
+  </g>
+
+  <!-- top bill face -->
+  <g>
+    <rect x="66" y="88" width="380" height="196" rx="20" fill="#22c55e" stroke="#15803d" stroke-width="10"/>
+    <!-- inner decorative border -->
+    <rect x="94" y="114" width="324" height="144" rx="12" fill="none" stroke="#f0fdf4" stroke-width="5" stroke-dasharray="18 10" opacity="0.85"/>
+    <!-- corner denominations -->
+    <text x="118" y="152" font-family="Arial, sans-serif" font-size="34" font-weight="bold" fill="#dcfce7">$</text>
+    <text x="374" y="246" font-family="Arial, sans-serif" font-size="34" font-weight="bold" fill="#dcfce7">$</text>
+    <!-- center medallion -->
+    <circle cx="256" cy="186" r="56" fill="#f0fdf4"/>
+    <circle cx="256" cy="186" r="56" fill="none" stroke="#15803d" stroke-width="7"/>
+    <text x="256" y="212" text-anchor="middle" font-family="Arial, sans-serif" font-size="76" font-weight="bold" fill="#15803d">$</text>
+  </g>
+</svg>
