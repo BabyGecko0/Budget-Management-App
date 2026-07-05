@@ -1,6 +1,7 @@
 package com.budgetapp.repository;
 
 import com.budgetapp.entity.Transaction;
+import com.budgetapp.entity.enums.TransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,7 +40,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
            "AND YEAR(t.date) = :year")
     BigDecimal sumByUserAndTypeAndMonth(
             @Param("userId") Long userId,
-            @Param("type") String type,
+            @Param("type") TransactionType type,
             @Param("month") int month,
             @Param("year") int year);
 

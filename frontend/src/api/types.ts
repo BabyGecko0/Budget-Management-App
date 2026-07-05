@@ -2,6 +2,7 @@ export type TransactionType = "INCOME" | "EXPENSE" | "TRANSFER";
 export type CategoryType = "INCOME" | "EXPENSE";
 export type AccountType = "CASH" | "BANK" | "SAVINGS" | "CREDIT";
 export type AuthProvider = "LOCAL" | "GOOGLE";
+export type Frequency = "DAILY" | "WEEKLY" | "MONTHLY";
 
 export interface AuthResponse {
   token: string;
@@ -64,6 +65,19 @@ export interface CategorySummary {
   percentage: number;
 }
 
+export interface Budget {
+  id: number;
+  categoryId: number;
+  categoryName: string;
+  categoryIcon: string | null;
+  categoryColor: string | null;
+  monthlyLimit: number;
+  spent: number;
+  month: number;
+  year: number;
+  overspent: boolean;
+}
+
 export interface Summary {
   month: number;
   year: number;
@@ -72,4 +86,37 @@ export interface Summary {
   netBalance: number;
   expenseByCategory: CategorySummary[];
   incomeByCategory: CategorySummary[];
+  budgets: Budget[];
+}
+
+export interface TrendPoint {
+  month: number;
+  year: number;
+  totalIncome: number;
+  totalExpenses: number;
+  netBalance: number;
+}
+
+export interface SavingsGoal {
+  id: number;
+  name: string;
+  targetAmount: number;
+  currentAmount: number;
+  progressPercent: number;
+  deadline: string | null;
+  note: string | null;
+}
+
+export interface RecurringTransaction {
+  id: number;
+  accountId: number;
+  accountName: string;
+  categoryId: number;
+  categoryName: string;
+  amount: number;
+  type: TransactionType;
+  frequency: Frequency;
+  nextRunDate: string;
+  active: boolean;
+  note: string | null;
 }

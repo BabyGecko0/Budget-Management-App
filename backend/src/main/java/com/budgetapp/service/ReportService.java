@@ -70,8 +70,8 @@ public class ReportService {
             int m = cursor.getMonthValue();
             int y = cursor.getYear();
 
-            BigDecimal income = transactionRepository.sumByUserAndTypeAndMonth(userId, "INCOME", m, y);
-            BigDecimal expenses = transactionRepository.sumByUserAndTypeAndMonth(userId, "EXPENSE", m, y);
+            BigDecimal income = transactionRepository.sumByUserAndTypeAndMonth(userId, TransactionType.INCOME, m, y);
+            BigDecimal expenses = transactionRepository.sumByUserAndTypeAndMonth(userId, TransactionType.EXPENSE, m, y);
 
             result.add(0, new TrendPoint(m, y, income, expenses, income.subtract(expenses)));
             cursor = cursor.minusMonths(1);
