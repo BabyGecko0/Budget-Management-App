@@ -23,6 +23,7 @@ public class SavingsGoalService {
 
     private final SavingsGoalRepository savingsGoalRepository;
     private final UserRepository userRepository;
+    private final AccountService accountService;
 
     public List<SavingsGoalResponse> getAll(Long userId) {
         return savingsGoalRepository.findByUserId(userId).stream()
@@ -47,6 +48,8 @@ public class SavingsGoalService {
         goal.setCurrentAmount(req.currentAmount() != null ? req.currentAmount() : BigDecimal.ZERO);
         goal.setDeadline(req.deadline());
         goal.setNote(req.note());
+        goal.setAccount(req.accountId() != null
+                ? accountService.findOwnedEntity(req.accountId(), userId) : null);
 
         SavingsGoal saved = savingsGoalRepository.save(goal);
         log.info("Created savings goal id={} name={} userId={}", saved.getId(), saved.getName(), userId);
@@ -61,6 +64,8 @@ public class SavingsGoalService {
         if (req.currentAmount() != null) goal.setCurrentAmount(req.currentAmount());
         goal.setDeadline(req.deadline());
         goal.setNote(req.note());
+        goal.setAccount(req.accountId() != null
+                ? accountService.findOwnedEntity(req.accountId(), userId) : null);
 
         SavingsGoal saved = savingsGoalRepository.save(goal);
         log.info("Updated savings goal id={} userId={}", id, userId);
@@ -73,6 +78,16 @@ public class SavingsGoalService {
             throw new BadRequestException("Contribution amount must be positive");
         }
         SavingsGoal goal = findOwned(id, userId);
+
+        // funded goal: money moves out of the linked account
+        if (goal.getAccount() != null) {
+            if (goal.getAccount().getBalance().compareTo(amount) < 0) {
+                throw new BadRequestException(
+                        "Not enough balance in account '" + goal.getAccount().getName() + "'");
+            }
+            accountService.adjustBalance(goal.getAccount(), amount.negate());
+        }
+
         goal.setCurrentAmount(goal.getCurrentAmount().add(amount));
 
         SavingsGoal saved = savingsGoalRepository.save(goal);

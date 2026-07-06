@@ -14,6 +14,7 @@ export default function SavingsPage() {
   const cur = user?.currency ?? "";
 
   const [goals, setGoals] = useState<SavingsGoal[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [savingsAccounts, setSavingsAccounts] = useState<Account[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [rainKey, setRainKey] = useState(0);
@@ -24,6 +25,7 @@ export default function SavingsPage() {
   const [target, setTarget] = useState("");
   const [deadline, setDeadline] = useState("");
   const [note, setNote] = useState("");
+  const [linkedAccountId, setLinkedAccountId] = useState("");
   const [busy, setBusy] = useState(false);
 
   // contribute
@@ -36,6 +38,7 @@ export default function SavingsPage() {
       api.get<Account[]>("/api/accounts"),
     ]);
     setGoals(g);
+    setAccounts(a);
     setSavingsAccounts(a.filter((x) => x.type === "SAVINGS"));
   }, []);
 
@@ -54,8 +57,9 @@ export default function SavingsPage() {
         currentAmount: 0,
         deadline: deadline || null,
         note: note || null,
+        accountId: linkedAccountId ? Number(linkedAccountId) : null,
       });
-      setName(""); setTarget(""); setDeadline(""); setNote("");
+      setName(""); setTarget(""); setDeadline(""); setNote(""); setLinkedAccountId("");
       setShowNew(false);
       await load();
     } catch (e) {
@@ -170,6 +174,18 @@ export default function SavingsPage() {
                 <input value={note} onChange={(e) => setNote(e.target.value)} />
               </div>
             </div>
+            <div className="field">
+              <label>Fund from account (optional)</label>
+              <select value={linkedAccountId} onChange={(e) => setLinkedAccountId(e.target.value)}>
+                <option value="">Not linked — just track progress</option>
+                {accounts.map((a) => (
+                  <option key={a.id} value={a.id}>{a.name} ({money(a.balance, cur)})</option>
+                ))}
+              </select>
+              <span className="hint" style={{ textAlign: "left" }}>
+                When linked, every contribution is taken out of that account's balance.
+              </span>
+            </div>
             <button className="btn" disabled={busy}>{busy ? "Creating…" : "Create goal"}</button>
           </form>
         </div>
@@ -208,7 +224,12 @@ export default function SavingsPage() {
                 <div className="progress-track">
                   <div className="progress-fill" style={{ width: `${pct}%` }} />
                 </div>
-                {g.note && <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>{g.note}</p>}
+                {g.accountName && (
+                  <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>
+                    🏦 Funded from <b>{g.accountName}</b>
+                  </p>
+                )}
+                {g.note && <p className="muted" style={{ marginTop: 6, marginBottom: 0 }}>{g.note}</p>}
                 <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
                   <button className="btn" onClick={() => { setContributeTo(g); setContribution(""); }}>
                     + Add money
@@ -237,6 +258,11 @@ export default function SavingsPage() {
                   onChange={(e) => setContribution(e.target.value)}
                 />
               </div>
+              {contributeTo.accountName && (
+                <p className="hint" style={{ textAlign: "left", marginTop: 0 }}>
+                  This amount will be deducted from <b>{contributeTo.accountName}</b>.
+                </p>
+              )}
               <p className="hint" style={{ textAlign: "left", marginTop: 0 }}>
                 Tip: save {RAIN_THRESHOLD}+ at once and something special happens… 🌧️
               </p>

@@ -33,4 +33,9 @@ public class SavingsGoal {
     private LocalDate deadline;
 
     private String note;
+
+    /** Optional funding source: contributions are deducted from this account's balance. */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
 }

@@ -58,6 +58,9 @@ public class AccountService {
         account.setType(req.type());
         account.setColor(req.color());
         account.setIcon(req.icon());
+        if (req.initialBalance() != null) {
+            account.setBalance(req.initialBalance());
+        }
 
         Account saved = accountRepository.save(account);
         log.info("Updated account id={} userId={}", id, userId);

@@ -13,7 +13,9 @@ public record SavingsGoalResponse(
         BigDecimal currentAmount,
         BigDecimal progressPercent,
         LocalDate deadline,
-        String note
+        String note,
+        Long accountId,
+        String accountName
 ) {
     public static SavingsGoalResponse from(SavingsGoal g) {
         BigDecimal progress = g.getTargetAmount().compareTo(BigDecimal.ZERO) == 0
@@ -23,7 +25,9 @@ public record SavingsGoalResponse(
                         .divide(g.getTargetAmount(), 2, RoundingMode.HALF_UP);
         return new SavingsGoalResponse(
                 g.getId(), g.getName(), g.getTargetAmount(),
-                g.getCurrentAmount(), progress, g.getDeadline(), g.getNote()
+                g.getCurrentAmount(), progress, g.getDeadline(), g.getNote(),
+                g.getAccount() != null ? g.getAccount().getId() : null,
+                g.getAccount() != null ? g.getAccount().getName() : null
         );
     }
 }

@@ -12,5 +12,6 @@ public record SavingsGoalRequest(
         @NotNull @Positive BigDecimal targetAmount,
         BigDecimal currentAmount,
         LocalDate deadline,
-        String note
+        String note,
+        Long accountId
 ) {}

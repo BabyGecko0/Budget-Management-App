@@ -105,6 +105,8 @@ export interface SavingsGoal {
   progressPercent: number;
   deadline: string | null;
   note: string | null;
+  accountId: number | null;
+  accountName: string | null;
 }
 
 export interface RecurringTransaction {
